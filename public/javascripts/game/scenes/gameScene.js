@@ -1,10 +1,11 @@
-class GameScene extends Scene {
+class GameScene1 {
     
-    asteroids = [];
-    asteroid_imgs = [];
+    asteroids;
+    asteroid_imgs;
 
     constructor() {
-
+        this.asteroids = [];
+        this.asteroid_imgs = [];
     }
 
     load() {
