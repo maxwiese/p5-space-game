@@ -1,9 +1,12 @@
+/// <reference path="../p5/p5.global-mode.d.ts" />
+
 // public variables
 let WIDTH, HEIGHT, EYES;
 let isFullscreen = false;
 
 // controller input
-let joiX = 0, joiY = 0;
+let joiX = 0,
+    joiY = 0;
 
 var gameScene = new TheGameScene();
 

@@ -14,12 +14,16 @@ class TheGameScene extends Scene {
 
     keyboard;
 
+    background_img;
+
     constructor() {
         super()
 
         this.width = 0;
         this.height = 0;
         this.eyes = 0;
+
+        this.background_img = 0;
 
         this.spaceship_imgs = [];
         this.spaceship = 0;
@@ -34,6 +38,8 @@ class TheGameScene extends Scene {
     }
 
     load() {
+        this.background_img = loadImage(`/assets/background/starfield_01.png`)
+
         for (let i = 1; i < 9; i++) {
             this.spaceship_imgs.push(loadImage(`/assets/spaceship/spaceship_gold_0${i}.png`));
         }
@@ -53,6 +59,15 @@ class TheGameScene extends Scene {
 
     loop(joix, joiy) {
         background(51);
+
+        push()
+        imageMode(CENTER);
+        scale(1.5);
+        rotate(PI / 2);
+        image(this.background_img, 0, 0);
+        pop()
+
+        scale
 
         if (joix == 0 && joiy == 0) {
             let input = this.keyboard.update(this.joix, this.joiy, 3);
