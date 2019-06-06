@@ -1,19 +1,11 @@
-//hold the game assets
-let asteroids = [];
-let asteroid_imgs = [];
-
-
 // public variables
 let WIDTH, HEIGHT, EYES;
-
 let isFullscreen = false;
-let isDebug = false;
 
+// controller input
 let joiX = 0, joiY = 0;
 
-let counter;
-
-let gameScene = new GameScene1();
+var gameScene = new TheGameScene();
 
 // getting socket
 let socket = io();
@@ -35,32 +27,12 @@ function setup() {
     WIDTH = ((windowWidth / 2) - EYES)
     HEIGHT = windowHeight;
 
-    counter = 0;
-
     createStereoCanvas(WEBGL, WIDTH, HEIGHT, EYES);
-    gameScene.init()
+    gameScene.init(WIDTH, HEIGHT, EYES);
 
 }
 
 function draw() {
-    counter += 1;
-    background(51);
-    
-    /*push()
-    translate( -counter * 0.1, -counter * 0.1)
-    imageMode(CENTER);
-    scale(counter * 0.001);
-    image(asteroids[0], 0, 0);
-    pop()*/
-
-
-    gameScene.loop()
-
-    push();
-    fill(color(255, 0, 0, 150));
-    noStroke();
-    ellipse(joiX , joiY, 10, 10);
-    pop();
-
+    gameScene.loop(joiX, joiY);
     updateStereo(); // duplicate the left eye to the right eye
 }

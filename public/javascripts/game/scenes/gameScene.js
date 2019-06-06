@@ -1,11 +1,27 @@
-class GameScene1 {
-    
+class TheGameScene extends Scene {
+
+    width;
+    height;
+    eyes;
+
     asteroids;
     asteroid_imgs;
 
+    joix;
+    joiy;
+
     constructor() {
+        super()
+
+        this.width = 0;
+        this.height = 0;
+        this.eyes = 0;
+
         this.asteroids = [];
         this.asteroid_imgs = [];
+
+        this.joix = 0;
+        this.joiy = 0;
     }
 
     load() {
@@ -14,23 +30,33 @@ class GameScene1 {
         this.asteroid_imgs.push(loadImage('/assets/asteroid_03.png'))
     }
 
-    init() {
-
+    init(width, height, eyes) {
+        this.width = width;
+        this.height = height;
+        this.eyes = eyes;
     }
 
-    loop() {
+    loop(joix, joiy) {
+        background(51);
+
         this.spawnAsteroids();
 
-        for(let i = 0; i < this.asteroids.length; i++) {
+        for (let i = 0; i < this.asteroids.length; i++) {
             let asteroid = this.asteroids[i];
-    
+
             asteroid.update();
             asteroid.draw();
-    
-            if(asteroid.isReadyToDestroy) {
+
+            if (asteroid.isReadyToDestroy) {
                 this.asteroids.splice(i, 1);
-            }        
+            }
         }
+
+        push();
+        fill(color(255, 0, 0, 150));
+        noStroke();
+        ellipse(joix, joiy, 10, 10);
+        pop();
 
     }
 
