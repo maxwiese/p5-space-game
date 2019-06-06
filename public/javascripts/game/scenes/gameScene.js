@@ -4,10 +4,10 @@ class TheGameScene extends Scene {
     height;
     eyes;
 
+    spaceship;
+
     asteroids;
     asteroid_imgs;
-
-    lazors;
 
     joix;
     joiy;
@@ -22,11 +22,10 @@ class TheGameScene extends Scene {
         this.eyes = 0;
 
         this.spaceship_imgs = [];
+        this.spaceship = 0;
 
         this.asteroids = [];
         this.asteroid_imgs = [];
-
-        this.lazors = [];
 
         this.joix = 0;
         this.joiy = 0;
@@ -48,6 +47,8 @@ class TheGameScene extends Scene {
         this.width = width;
         this.height = height;
         this.eyes = eyes;
+
+        this.spaceship = new Spaceship(this.spaceship_imgs, this.width, this.height);
     }
 
     loop(joix, joiy) {
@@ -64,16 +65,12 @@ class TheGameScene extends Scene {
         }
 
         if (this.keyboard.space) {
-            this.lazors.push(new Lazor())
-        }
-
-        for (let i = 0; i < this.lazors.length; i++) {
-            let lazor = this.lazors[i];
-
-
+            this.spaceship.shoot()
         }
 
         this.spawnAsteroids();
+
+        this.spaceship.draw();
 
         for (let i = 0; i < this.asteroids.length; i++) {
             let asteroid = this.asteroids[i];

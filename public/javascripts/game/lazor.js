@@ -11,7 +11,7 @@ class Lazor {
         this.stroke = stroke;
     }
 
-    update(x, y, z) {
+    update(x=0, y=0, z=0) {
         this.position.x = x;
         this.position.y = y;
         this.position.z = z;
