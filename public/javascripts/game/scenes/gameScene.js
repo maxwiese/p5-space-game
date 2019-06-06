@@ -7,8 +7,12 @@ class TheGameScene extends Scene {
     asteroids;
     asteroid_imgs;
 
+    lazors;
+
     joix;
     joiy;
+
+    keyboard;
 
     constructor() {
         super()
@@ -17,17 +21,27 @@ class TheGameScene extends Scene {
         this.height = 0;
         this.eyes = 0;
 
+        this.spaceship_imgs = [];
+
         this.asteroids = [];
         this.asteroid_imgs = [];
 
+        this.lazors = [];
+
         this.joix = 0;
         this.joiy = 0;
+
+        this.keyboard = new Keyboard();
     }
 
     load() {
-        this.asteroid_imgs.push(loadImage('/assets/asteroid_01.png'))
-        this.asteroid_imgs.push(loadImage('/assets/asteroid_02.png'))
-        this.asteroid_imgs.push(loadImage('/assets/asteroid_03.png'))
+        for (let i = 1; i < 9; i++) {
+            this.spaceship_imgs.push(loadImage(`/assets/spaceship/spaceship_gold_0${i}.png`));
+        }
+
+        for (let i = 1; i < 4; i++) {
+            this.asteroid_imgs.push(loadImage(`/assets/asteroid/asteroid_0${i}.png`));
+        }
     }
 
     init(width, height, eyes) {
@@ -38,6 +52,26 @@ class TheGameScene extends Scene {
 
     loop(joix, joiy) {
         background(51);
+
+        if (joix == 0 && joiy == 0) {
+            let input = this.keyboard.update(this.joix, this.joiy, 3);
+
+            this.joix = input.x;
+            this.joiy = input.y;
+        } else {
+            this.joix = joix;
+            this.joiy = joiy;
+        }
+
+        if (this.keyboard.space) {
+            this.lazors.push(new Lazor())
+        }
+
+        for (let i = 0; i < this.lazors.length; i++) {
+            let lazor = this.lazors[i];
+
+
+        }
 
         this.spawnAsteroids();
 
@@ -55,8 +89,10 @@ class TheGameScene extends Scene {
         push();
         fill(color(255, 0, 0, 150));
         noStroke();
-        ellipse(joix, joiy, 10, 10);
+        ellipse(this.joix, this.joiy, 10, 10);
         pop();
+
+
 
     }
 
