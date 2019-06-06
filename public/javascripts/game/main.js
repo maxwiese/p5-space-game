@@ -36,6 +36,8 @@ function setup() {
 }
 
 function draw() {
+    angleMode(DEGREES);
+
     gameScene.loop(joiX, joiY);
     updateStereo(); // duplicate the left eye to the right eye
 }

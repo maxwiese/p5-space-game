@@ -8,39 +8,44 @@ class Keyboard {
 
     }
 
-    update(x, y, speed=1) {
+    update(x, y, speed = 1) {
         this.x = x;
         this.y = y;
 
-        if(keyIsPressed === true) {
+        if (keyIsPressed === true) {
             //up arrow or w key
-            if(keyCode == 38 || keyCode == 87) {
+            if (keyCode == 38 || keyCode == 87) {
                 this.y = y - speed;
 
             }
             //down arrow or s key
-            if(keyCode == 40 || keyCode == 83) {
+            if (keyCode == 40 || keyCode == 83) {
                 this.y = y + speed;
-                
+
             }
             //left arrow or a key
-            if(keyCode == 37 || keyCode == 65) {
+            if (keyCode == 37 || keyCode == 65) {
                 this.x = x - speed;
-                
+
             }
             //right arrow or  d key
-            if(keyCode == 39 || keyCode == 68) {
+            if (keyCode == 39 || keyCode == 68) {
                 this.x = x + speed;
-                
+
             }
             //space key
-            if(keyCode == 32) {
+            if (keyCode == 32) {
+
                 this.space = true;
-            } else {
-                this.space = false
+
             }
+        } else {
+            this.space = false
         }
 
-        return {x: this.x, y : this.y}
+        return {
+            x: this.x,
+            y: this.y
+        }
     }
 }

@@ -63,11 +63,10 @@ class TheGameScene extends Scene {
         push()
         imageMode(CENTER);
         scale(1.5);
-        rotate(PI / 2);
+        rotate(90);
         image(this.background_img, 0, 0);
         pop()
 
-        scale
 
         if (joix == 0 && joiy == 0) {
             let input = this.keyboard.update(this.joix, this.joiy, 3);
@@ -85,6 +84,7 @@ class TheGameScene extends Scene {
 
         this.spawnAsteroids();
 
+        this.spaceship.update((this.joiy + (height / 2)), (this.joix + (width / 2)));
         this.spaceship.draw();
 
         for (let i = 0; i < this.asteroids.length; i++) {

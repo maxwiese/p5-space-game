@@ -12,7 +12,7 @@ class Spaceship {
     constructor(images, width, height) {
         this.images = images;
         this.level = 0;
-        
+
         this.direction = 0;
 
         this.screenWidth = width;
@@ -24,8 +24,8 @@ class Spaceship {
         this.lazors = [];
     }
 
-    update(direction) {
-        this.direction = direction;
+    update(dirX, dirY) {
+        this.direction = atan2(dirY - this.position.y, dirX - this.position.x);
 
         for (let i = 0; i < this.lazors.lenght; i++) {
             this.lazors.update();
@@ -35,6 +35,7 @@ class Spaceship {
     draw() {
 
         push();
+
         translate(this.position.x, this.position.y);
         scale(this.position.z);
         rotate(this.direction);
@@ -46,7 +47,7 @@ class Spaceship {
             this.lazors.draw();
         }
     }
-    
+
     shoot() {
         console.log("Captain: 'shoot!'")
 
