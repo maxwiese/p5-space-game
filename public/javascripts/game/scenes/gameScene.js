@@ -4,7 +4,11 @@ class TheGameScene extends Scene {
     height;
     eyes;
 
+    crosshair;
+    crosshair_imgs;
+
     spaceship;
+    spaceship_imgs;
 
     asteroids;
     asteroid_imgs;
@@ -28,8 +32,11 @@ class TheGameScene extends Scene {
 
         this.background_img = 0;
 
-        this.spaceship_imgs = [];
+        this.crosshair = 2;
+        this.crosshair_imgs = [];
+
         this.spaceship = 0;
+        this.spaceship_imgs = [];
 
         this.asteroids = [];
         this.asteroid_imgs = [];
@@ -42,6 +49,10 @@ class TheGameScene extends Scene {
 
     load() {
         this.background_img = loadImage(`/assets/background/starfield_02.png`)
+
+        for (let i = 1; i < 5; i++) {
+            this.crosshair_imgs.push(loadImage(`/assets/crosshair/crosshair_0${i}.png`));
+        }
 
         for (let i = 1; i < 9; i++) {
             this.spaceship_imgs.push(loadImage(`/assets/spaceship/spaceship_gold_0${i}.png`));
@@ -94,10 +105,7 @@ class TheGameScene extends Scene {
         }
 
         this.spawnAsteroids();
-
-        this.spaceship.update((this.joiy + (height / 2)), (this.joix + (width / 2)));
-        this.spaceship.draw();
-
+        
         for (let i = 0; i < this.asteroids.length; i++) {
             let asteroid = this.asteroids[i];
 
@@ -105,23 +113,26 @@ class TheGameScene extends Scene {
 
             if (asteroid.isHitByLazor(this.spaceship.lazors)) {
                 this.score++;
-                this.testLevelUp();
+                //this.normalLevelUp();
+                this.randomOneLevelUp()
             }
 
             asteroid.draw();
 
-
             if (asteroid.isReadyToDestroy) {
                 this.asteroids.splice(i, 1);
             }
-
-
         }
+        this.spaceship.update((this.joiy + (height / 2)), (this.joix + (width / 2)));
+        this.spaceship.draw();
+
+        
 
         push();
-        fill(color(255, 0, 0, 150));
-        noStroke();
-        ellipse(this.joix, this.joiy, 10, 10);
+        translate(this.joix, this.joiy);
+        imageMode(CENTER);
+        scale(0.1)
+        image(this.crosshair_imgs[this.crosshair], 0, 0);
         pop();
 
         image(this.scoreTxt, -this.width / 2, -this.height / 2)
@@ -135,22 +146,40 @@ class TheGameScene extends Scene {
         }
     }
 
-    testLevelUp() {
-        switch (this.score / 10) {
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-            case 7:
+    normalLevelUp() {
+        switch (this.score) {
+            case 10:
+            case 30:
+            case 60:
+            case 160:
+            case 350:
+            case 700:
+            case 1337:
                 this.spaceship.levelUp();
                 break;
 
             default:
                 break;
         }
+    }
 
+    randomOneLevelUp() {
+        if (this.spaceship.level < 8) {
+            switch (this.score) {
+                case int(random(10, 20)):
+                case int(random(20, 40)):
+                case int(random(40, 80)):
+                case int(random(80, 160)):
+                case int(random(160, 320)):
+                case int(random(320, 640)):
+                case int(random(1280, 2560)):
+                    this.spaceship.levelUp();
+                    break;
+
+                default:
+                    break;
+            }
+        }
     }
 
 }

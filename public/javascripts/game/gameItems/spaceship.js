@@ -55,8 +55,6 @@ class Spaceship {
     }
 
     shoot(destX, destY) {
-        console.log("Captain: 'shoot!'");
-
         this.lazors.push(new Lazor(this.position.x, this.position.y, destX, destY, this.direction));
     }
 

@@ -4,6 +4,8 @@
 let WIDTH, HEIGHT, EYES;
 let isFullscreen = false;
 
+let FRAMERATE = 60;
+
 // controller input
 let joiX = 0,
     joiY = 0;
@@ -32,7 +34,7 @@ function setup() {
 
     createStereoCanvas(WEBGL, WIDTH, HEIGHT, EYES);
     gameScene.init(WIDTH, HEIGHT, EYES);
-
+    frameRate(FRAMERATE);
 }
 
 function draw() {

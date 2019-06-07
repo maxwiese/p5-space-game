@@ -44,8 +44,7 @@ class Asteroid {
 
         let r = this.image.width * this.scale;
 
-        //DEBUG: 
-        ellipse(this.position.x, this.position.y, r, r);
+        //DEBUG: ellipse(this.position.x, this.position.y, r, r);
 
         for (let lazor of lazors) {
             
