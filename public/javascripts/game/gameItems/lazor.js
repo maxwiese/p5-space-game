@@ -1,31 +1,50 @@
 class Lazor {
-    position;
+    counter;
+    startPos
+    destPos;
+    currPos;
     color;
-    lenght;
+    length;
     stroke;
+    angleBetween;
+
+    isReadyToDestroy;
     
-    constructor(color=color(255, 0, 100, 150), lenght=25, stroke=5) {
-        this.position = createVector(0, 0, 0);
-        this.color = color;
-        this.lenght = lenght;
+    constructor(startX, startY, destX, destY, angleBetween, length=25, stroke=3) {
+        this.counter = 0;
+
+        this.startPos = createVector(startX, startY);
+        this.destPos = createVector(destX, destY);
+        this.currPos = this.startPos;
+        this.angleBetween = angleBetween;
+
+        this.color = color(255, 0, 150);
+        this.length = length;
         this.stroke = stroke;
+
+        this.isReadyToDestroy = false;
     }
 
-    update(x=0, y=0, z=0) {
-        this.position.x = x;
-        this.position.y = y;
-        this.position.z = z;
+    update() {
+        this.counter += 2;
+
+        this.currPos = p5.Vector.lerp(this.startPos, this.destPos, this.counter / 100);
+
+        if(this.currPos.equals(this.destPos)) {
+            this.isReadyToDestroy = true;
+        }
     }
 
     draw() {
         push()
+        
+        translate(this.currPos.x, this.currPos.y)
 
-        var cpointX = this.position.x - this.lenght;
-        var cpointY = this.position.y - this.lenght;
+        rotate(this.angleBetween)
         
         strokeWeight(this.stroke);
         stroke(this.color);
-        line(this.position.x, this.position.y, cpointX, cpointY);
+        line(0, 0, 0, this.length);
 
         pop()
     }

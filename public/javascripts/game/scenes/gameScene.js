@@ -9,6 +9,9 @@ class TheGameScene extends Scene {
     asteroids;
     asteroid_imgs;
 
+    score;
+    scoreTxt;
+
     joix;
     joiy;
 
@@ -38,7 +41,7 @@ class TheGameScene extends Scene {
     }
 
     load() {
-        this.background_img = loadImage(`/assets/background/starfield_01.png`)
+        this.background_img = loadImage(`/assets/background/starfield_02.png`)
 
         for (let i = 1; i < 9; i++) {
             this.spaceship_imgs.push(loadImage(`/assets/spaceship/spaceship_gold_0${i}.png`));
@@ -55,18 +58,26 @@ class TheGameScene extends Scene {
         this.eyes = eyes;
 
         this.spaceship = new Spaceship(this.spaceship_imgs, this.width, this.height);
+
+        this.score = 0;
+        this.scoreTxt = createGraphics(this.width, 30);
+        this.scoreTxt.textFont('Source Code Pro');
+        this.scoreTxt.textSize(24);
+        this.scoreTxt.fill(0);
     }
 
     loop(joix, joiy) {
         background(51);
 
+        this.scoreTxt.background(255);
+        this.scoreTxt.text(`Score: ${this.score}    Level: ${this.spaceship.level}`, 0, 25)
+
         push()
         imageMode(CENTER);
-        scale(1.5);
-        rotate(90);
+        scale(0.3);
+        //rotate(90);
         image(this.background_img, 0, 0);
         pop()
-
 
         if (joix == 0 && joiy == 0) {
             let input = this.keyboard.update(this.joix, this.joiy, 3);
@@ -79,7 +90,7 @@ class TheGameScene extends Scene {
         }
 
         if (this.keyboard.space) {
-            this.spaceship.shoot()
+            this.spaceship.shoot(this.joix, this.joiy)
         }
 
         this.spawnAsteroids();
@@ -91,11 +102,20 @@ class TheGameScene extends Scene {
             let asteroid = this.asteroids[i];
 
             asteroid.update();
+
+            if (asteroid.isHitByLazor(this.spaceship.lazors)) {
+                this.score++;
+                this.testLevelUp();
+            }
+
             asteroid.draw();
+
 
             if (asteroid.isReadyToDestroy) {
                 this.asteroids.splice(i, 1);
             }
+
+
         }
 
         push();
@@ -104,7 +124,7 @@ class TheGameScene extends Scene {
         ellipse(this.joix, this.joiy, 10, 10);
         pop();
 
-
+        image(this.scoreTxt, -this.width / 2, -this.height / 2)
 
     }
 
@@ -113,6 +133,24 @@ class TheGameScene extends Scene {
             let asteroid = new Asteroid(this.asteroid_imgs[int(random(0, this.asteroids.length))], 25);
             this.asteroids.push(asteroid);
         }
+    }
+
+    testLevelUp() {
+        switch (this.score / 10) {
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+                this.spaceship.levelUp();
+                break;
+
+            default:
+                break;
+        }
+
     }
 
 }

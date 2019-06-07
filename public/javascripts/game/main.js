@@ -28,7 +28,7 @@ function preload() {
 function setup() {
     EYES = 75
     WIDTH = ((windowWidth / 2) - EYES)
-    HEIGHT = windowHeight;
+    HEIGHT = windowHeight - 10;
 
     createStereoCanvas(WEBGL, WIDTH, HEIGHT, EYES);
     gameScene.init(WIDTH, HEIGHT, EYES);

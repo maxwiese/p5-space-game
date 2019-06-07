@@ -2,10 +2,11 @@ class Keyboard {
     x;
     y;
     space;
+    lastTimeSpacePressed;
 
     constructor() {
         this.space = false;
-
+        this.lastTimeSpacePressed = true;
     }
 
     update(x, y, speed = 1) {
@@ -35,12 +36,15 @@ class Keyboard {
             }
             //space key
             if (keyCode == 32) {
-
-                this.space = true;
-
+                if(this.lastTimeSpacePressed) {
+                    this.space = true;
+                    this.lastTimeSpacePressed = false;
+                } else {
+                    this.space = false;
+                }
             }
         } else {
-            this.space = false
+            this.lastTimeSpacePressed = true;
         }
 
         return {
