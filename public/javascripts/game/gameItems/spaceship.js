@@ -4,6 +4,8 @@ class Spaceship {
     screenWidth;
     screenHeight;
     level;
+    shield;
+    isDestroied;
     direction;
     position;
 
@@ -12,6 +14,8 @@ class Spaceship {
     constructor(images, width, height) {
         this.images = images;
         this.level = 0;
+        this.shield = 100;
+        this.isDestroied = false;
 
         this.direction = 0;
 
@@ -54,11 +58,22 @@ class Spaceship {
         pop();
     }
 
+    getSpaceshipImg() {
+        return this.images[this.level];
+    }
+
     shoot(destX, destY) {
         this.lazors.push(new Lazor(this.position.x, this.position.y, destX, destY, this.direction));
     }
 
     levelUp() {
         this.level += 1;
+    }
+
+    hitByAsteroid() {
+        this.shield - 20;
+        if (this.shield == 0) {
+            this.isDestroied = true;
+        }
     }
 }

@@ -40,6 +40,12 @@ class Asteroid {
         pop();
     }
 
+    hitSpaceship(spaceship) {
+        let r = this.image.width * this.scale;
+        let hit = collideRectCircle(spaceship.position.x, spaceship.position.y, spaceship.getSpaceshipImg().width, spaceship.getSpaceshipImg().height, this.position.x, this.position.y, r)
+        return hit;
+    }
+
     isHitByLazor(lazors){
 
         let r = this.image.width * this.scale;

@@ -81,7 +81,7 @@ class TheGameScene extends Scene {
         background(51);
 
         this.scoreTxt.background(255);
-        this.scoreTxt.text(`Score: ${this.score}    Level: ${this.spaceship.level}`, 0, 25)
+        this.scoreTxt.text(`Score: ${this.score}  Level: ${this.spaceship.level}  Shield: ${this.spaceship.shield}%`, 0, 25)
 
         push()
         imageMode(CENTER);
@@ -115,6 +115,10 @@ class TheGameScene extends Scene {
                 this.score++;
                 //this.normalLevelUp();
                 this.randomOneLevelUp()
+            }
+
+            if (asteroid.hitSpaceship(this.spaceship)) {
+                this.spaceship.hitByAsteroid();
             }
 
             asteroid.draw();
