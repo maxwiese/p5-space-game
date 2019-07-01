@@ -35,6 +35,8 @@ function setup() {
     createStereoCanvas(WEBGL, WIDTH, HEIGHT, EYES);
     gameScene.init(WIDTH, HEIGHT, EYES);
     frameRate(FRAMERATE);
+    
+    collideDebug(true);
 }
 
 function draw() {

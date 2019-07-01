@@ -47,11 +47,10 @@ class Asteroid {
         //DEBUG: ellipse(this.position.x, this.position.y, r, r);
 
         for (let lazor of lazors) {
-            
-            let valX = (lazor.currPos.x < (this.position.x + r) && lazor.currPos.x > (this.position.x - r))
-            let valY = (lazor.currPos.y < (this.position.y + r) && lazor.currPos.y > (this.position.y - r))
 
-            if( valX && valY ) {
+            let isHit = collideLineCircle(lazor.currPos.x, lazor.currPos.y, 0, lazor.length, this.position.x, this.position.y, r)
+
+            if( isHit ) {
                 lazor.isReadyToDestroy = true;
                 this.isReadyToDestroy = true;
                 return true;
