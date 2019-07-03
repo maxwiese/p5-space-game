@@ -1,4 +1,4 @@
-class TheStartScene extends Scene {
+class TheEndScene extends Scene {
 
     width;
     height;
@@ -9,6 +9,7 @@ class TheStartScene extends Scene {
 
     header;
     subtext;
+    score;
     
     lastBlink
 
@@ -39,6 +40,13 @@ class TheStartScene extends Scene {
         this.header.textSize(22);
         this.header.fill(0);
 
+        this.score = createGraphics(this.width, 30);
+        this.score.textFont(this.font);
+        this.score.textSize(30);
+        
+        this.score.fill(255, 0, 0);
+
+
         this.subtext = createGraphics(this.width, 30);
         this.subtext.textFont('Source Code Pro');
         this.subtext.textSize(18);
@@ -57,14 +65,18 @@ class TheStartScene extends Scene {
         image(this.background_img, 0, 0);
         pop();
 
-        this.header.text(`SPACE SHOOTER`, 0, 25);
+        this.header.text(`GAME OVER`, 0, 25);
 
-        this.subtext.text(`press space key to start`, 0, 25);
+        this.score.text(`${scenes[1].score}`, 0, 25);
 
-        image(this.header, ((-this.width / 2) + 50), -75);
+        this.subtext.text(`press space key to start again`, 0, 25);
 
+        image(this.score, -this.width / 2 + (this.score.width / 2 - 10) , -45);
+
+        image(this.header, -this.width / 2 + 100 , -100);
+        
         if (curr.diff(this.lastBlink, 'seconds') > 0 ) {
-            image(this.subtext, -this.width / 2 + 105, -50);
+            image(this.subtext, -this.width / 2 + 90, 0);
         } 
         if (curr.diff(this.lastBlink, 'seconds') > 1 ) {
             this.lastBlink = moment();

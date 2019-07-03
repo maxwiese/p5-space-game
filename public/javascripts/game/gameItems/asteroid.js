@@ -5,38 +5,38 @@ class Asteroid {
     direction;
     position;
     scale;
-    counter;
+    damage;
     isReadyToDestroy;
         
     constructor(image, maxSize=50) {
         this.image = image;
-        this.speed = 0.1;
-        this.position = createVector(0, 0);
-        this.direction = createVector(int(random(-maxSize, maxSize)), int(random(-maxSize, maxSize)));
-        this.scale = 1;
         
-        this.counter = 0;
+        this.position = createVector(int(random(-WIDTH /2, WIDTH/2)), -HEIGHT/2);
+        
+        this.scale = random(0.1, 1);
+        this.speed = 0.5 * (this.scale *10);
+        this.direction = createVector(0, this.speed);
+        
+        this.damage = int(this.scale * 20);
         this.isReadyToDestroy = false;
     }
 
     update() {
-        this.counter += 1;
-        
-        if (this.counter > 300) {
+        this.position.x += this.direction.x;
+        this.position.y += this.direction.y;
+
+        if (this.position.y > HEIGHT /2 + 10) {
             this.isReadyToDestroy = true;
         }
     }
     
     draw() {
-        let xspeed = map(this.counter, 0, 300, 300, 0)
-        this.position = createVector((this.counter * 0.1 * this.direction.x), (this.counter * 0.1 * this.direction.y))
-        this.scale = this.counter * 0.1 * this.speed
-
         push();
         translate(this.position.x, this.position.y);
         imageMode(CENTER);
         scale(this.scale);
         image(this.image, 0, 0);
+        
         pop();
     }
 
@@ -48,13 +48,13 @@ class Asteroid {
 
     isHitByLazor(lazors){
 
-        let r = this.image.width * this.scale;
+        let r = this.image.width*this.scale;
 
-        //DEBUG: ellipse(this.position.x, this.position.y, r, r);
+        //DEBUG:ellipse(this.position.x, this.position.y, r, r);
 
         for (let lazor of lazors) {
 
-            let isHit = collideLineCircle(lazor.currPos.x, lazor.currPos.y, 0, lazor.length, this.position.x, this.position.y, r)
+            let isHit = collideLineCircle(lazor.currPos.x, lazor.currPos.y, lazor.image.width, lazor.image.height, this.position.x, this.position.y, r)
 
             if( isHit ) {
                 lazor.isReadyToDestroy = true;

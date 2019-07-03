@@ -7,26 +7,13 @@ let isFullscreen = false;
 
 let FRAMERATE = 60;
 
-// controller input
-let joiX = 0,
-    joiY = 0;
-
-let scenes = [new TheStartScene(), new TheGameScene()];
-
-// getting socket
-let socket = io();
-
-socket.on('controller_input', (data) => {
-    let jData = JSON.parse(`${data}`);
-    joiX = jData.x;
-    joiY = jData.y;
-})
-
+let scenes = [new TheStartScene(), new TheGameScene(), new TheEndScene()];
 
 // loading game assets
 function preload() {
     scenes[0].load();
     scenes[1].load();
+    scenes[2].load();
 }
 
 function setup() {
@@ -34,9 +21,12 @@ function setup() {
     WIDTH = ((windowWidth / 2) - EYES)
     HEIGHT = windowHeight - 10;
 
-    createStereoCanvas(WEBGL, WIDTH, HEIGHT, EYES);
+    createCanvas(WIDTH, HEIGHT, 'webgl');
+
     scenes[0].init(WIDTH, HEIGHT, EYES);
     scenes[1].init(WIDTH, HEIGHT, EYES);
+    scenes[2].init(WIDTH, HEIGHT, EYES);
+
     frameRate(FRAMERATE);
 
     collideDebug(true);
@@ -50,11 +40,14 @@ function draw() {
             scenes[0].loop();
             break;
         case 1:
-            scenes[1].loop(joiX, joiY);
+            scenes[1].loop();
+            break;
+        case 2:
+            scenes[2].loop();
             break;
         default:
             break;
     }
 
-    updateStereo(); // duplicate the left eye to the right eye
+
 }

@@ -7,10 +7,11 @@ class Lazor {
     length;
     stroke;
     angleBetween;
+    image;
 
     isReadyToDestroy;
     
-    constructor(startX, startY, destX, destY, angleBetween, length=25, stroke=3) {
+    constructor(startX, startY, destX, destY, angleBetween, image, length=25, stroke=3) {
         this.counter = 0;
 
         this.startPos = createVector(startX, startY);
@@ -23,6 +24,7 @@ class Lazor {
         this.stroke = stroke;
 
         this.isReadyToDestroy = false;
+        this.image = image;
     }
 
     update() {
@@ -39,12 +41,15 @@ class Lazor {
         push()
         
         translate(this.currPos.x, this.currPos.y)
-
-        rotate(this.angleBetween)
-        
+        scale(0.2);
+        rotate(this.angleBetween + 90)
+        /*
         strokeWeight(this.stroke);
         stroke(this.color);
         line(0, 0, 0, this.length);
+        */
+       //imageMode(CENTER);
+       image(this.image, 0, 0)
 
         pop()
     }

@@ -10,16 +10,15 @@ class TheGameScene extends Scene {
     spaceship;
     spaceship_imgs;
 
+    lazor_imgs;
+
     asteroids;
     asteroid_imgs;
 
     score;
     scoreTxt;
 
-    joix;
-    joiy;
-
-    keyboard;
+    aim;
 
     background_img;
 
@@ -38,13 +37,13 @@ class TheGameScene extends Scene {
         this.spaceship = 0;
         this.spaceship_imgs = [];
 
+        this.lazor_imgs = [];
+
         this.asteroids = [];
         this.asteroid_imgs = [];
 
         this.joix = 0;
         this.joiy = 0;
-
-        this.keyboard = new Keyboard();
     }
 
     load() {
@@ -58,6 +57,10 @@ class TheGameScene extends Scene {
             this.spaceship_imgs.push(loadImage(`/assets/spaceship/spaceship_gold_0${i}.png`));
         }
 
+        for (let i = 1; i < 3; i++) {
+            this.lazor_imgs.push(loadImage(`/assets/lazorbeam/lazor_0${i}.png`));
+        }
+
         for (let i = 1; i < 4; i++) {
             this.asteroid_imgs.push(loadImage(`/assets/asteroid/asteroid_0${i}.png`));
         }
@@ -68,6 +71,8 @@ class TheGameScene extends Scene {
         this.height = height;
         this.eyes = eyes;
 
+        this.aim = createVector();
+
         this.spaceship = new Spaceship(this.spaceship_imgs, this.width, this.height);
 
         this.score = 0;
@@ -77,7 +82,7 @@ class TheGameScene extends Scene {
         this.scoreTxt.fill(0);
     }
 
-    loop(joix, joiy) {
+    loop() {
         background(51);
 
         this.scoreTxt.background(255);
@@ -90,22 +95,29 @@ class TheGameScene extends Scene {
         image(this.background_img, 0, 0);
         pop()
 
-        if (joix == 0 && joiy == 0) {
-            let input = this.keyboard.update(this.joix, this.joiy, 3);
+        this.aim.x = -1 * (map(mouseX, -WIDTH / 2, WIDTH / 2, WIDTH, 0));
+        this.aim.y = -1 * (map(mouseY, -HEIGHT / 2, HEIGHT / 2, HEIGHT, 0));
 
-            this.joix = input.x;
-            this.joiy = input.y;
-        } else {
-            this.joix = joix;
-            this.joiy = joiy;
+        if (mouseIsPressed) {
+            if (mouseButton == LEFT && Date.now() > this.spaceship.lastShot + this.spaceship.shotSpeed) {
+                this.spaceship.shoot(this.aim.x, this.aim.y, this.lazor_imgs[0]);
+                this.spaceship.lastShot = Date.now();
+            }
         }
 
-        if (this.keyboard.space) {
-            this.spaceship.shoot(this.joix, this.joiy)
+        if (keyIsPressed === true) {
+            //left arrow or  a key
+            if (keyCode == 37 || keyCode == 97 && !(this.spaceship.position.x < -155)) {
+                this.spaceship.move(-1)
+            }
+            //right arrow or  d key
+            if (keyCode == 39 || keyCode == 100 && !(this.spaceship.position.x > 155)) {
+                this.spaceship.move(1)
+            }
         }
 
         this.spawnAsteroids();
-        
+
         for (let i = 0; i < this.asteroids.length; i++) {
             let asteroid = this.asteroids[i];
 
@@ -118,7 +130,11 @@ class TheGameScene extends Scene {
             }
 
             if (asteroid.hitSpaceship(this.spaceship)) {
-                this.spaceship.hitByAsteroid();
+                this.spaceship.hitByAsteroid(asteroid);
+                asteroid.isReadyToDestroy = true;
+                if (this.spaceship.isDestroyed) {
+                    CURR_SCENE = 2;
+                }
             }
 
             asteroid.draw();
@@ -127,13 +143,13 @@ class TheGameScene extends Scene {
                 this.asteroids.splice(i, 1);
             }
         }
-        this.spaceship.update((this.joiy + (height / 2)), (this.joix + (width / 2)));
+        this.spaceship.update((this.aim.y + (height / 2)), (this.aim.x + (width / 2)));
         this.spaceship.draw();
 
-        
+
 
         push();
-        translate(this.joix, this.joiy);
+        translate(this.aim.x, this.aim.y);
         imageMode(CENTER);
         scale(0.1)
         image(this.crosshair_imgs[this.crosshair], 0, 0);
@@ -184,6 +200,15 @@ class TheGameScene extends Scene {
                     break;
             }
         }
+    }
+
+    reset() {
+        this.score = 0;
+        this.spaceship.level = 0;
+        this.spaceship.shield = 100;
+
+        this.spaceship.lazors = [];
+        this.asteroids = [];
     }
 
 }

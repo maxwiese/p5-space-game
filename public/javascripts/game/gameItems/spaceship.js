@@ -10,6 +10,7 @@ class Spaceship {
     position;
 
     lazors;
+    lastShot;
 
     constructor(images, width, height) {
         this.images = images;
@@ -26,6 +27,12 @@ class Spaceship {
         this.position = createVector(0, posY, 1.7);
 
         this.lazors = [];
+        this.lastShot = Date.now();
+        this.shotSpeed = map(this.level, 0, 7, 300, 50)
+    }
+
+    move(posX) {
+        this.position.x += posX;
     }
 
     update(dirX, dirY) {
@@ -33,10 +40,10 @@ class Spaceship {
         this.direction = atan2(dirY - this.position.y, dirX - this.position.x);
 
         for (let i = 0; i < this.lazors.length; i++) {
-            
+
             this.lazors[i].update();
 
-            if(this.lazors[i].isReadyToDestroy) {
+            if (this.lazors[i].isReadyToDestroy) {
                 this.lazors.splice(i, 1);
             }
 
@@ -44,7 +51,6 @@ class Spaceship {
     }
 
     draw() {
-
         for (let i = 0; i < this.lazors.length; i++) {
             this.lazors[i].draw();
         }
@@ -62,18 +68,21 @@ class Spaceship {
         return this.images[this.level];
     }
 
-    shoot(destX, destY) {
-        this.lazors.push(new Lazor(this.position.x, this.position.y, destX, destY, this.direction));
+    shoot(destX, destY, lazor_image) {
+        this.lazors.push(new Lazor(this.position.x, this.position.y, destX, destY, this.direction, lazor_image));
     }
 
     levelUp() {
-        this.level += 1;
+        if (this.level + 1 < this.images.length) {
+            this.level += 1;
+            this.shotSpeed = map(this.level, 0, 7, 300, 50)
+        }
     }
 
-    hitByAsteroid() {
-        this.shield - 20;
-        if (this.shield == 0) {
-            this.isDestroied = true;
+    hitByAsteroid(asteroid) {
+        this.shield -= asteroid.damage;
+        if (this.shield <= 0) {
+            this.isDestroyed = true;
         }
     }
 }
