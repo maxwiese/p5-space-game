@@ -34,10 +34,9 @@ class Spaceship {
     move(posX) {
         this.position.x += posX;
     }
-
-    update(dirX, dirY) {
-        // TODO: find right angle between ship and pointer
-        this.direction = atan2(dirY - this.position.y, dirX - this.position.x);
+    update(crosshair) {
+        this.direction = atan2(crosshair.y - this.position.y, crosshair.x - this.position.x);
+        this.direction = (this.direction < 0) ? TWO_PI + this.direction +90 : this.direction + 90;
 
         for (let i = 0; i < this.lazors.length; i++) {
 

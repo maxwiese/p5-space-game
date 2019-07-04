@@ -3,9 +3,9 @@
 // public variables
 let WIDTH, HEIGHT, EYES;
 let CURR_SCENE = 0;
-let isFullscreen = false;
 
 let FRAMERATE = 60;
+let TIMER;
 
 let scenes = [new TheStartScene(), new TheGameScene(), new TheEndScene()];
 
@@ -29,7 +29,7 @@ function setup() {
 
     frameRate(FRAMERATE);
 
-    collideDebug(true);
+    collideDebug(false);
 }
 
 function draw() {

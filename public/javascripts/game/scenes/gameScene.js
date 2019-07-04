@@ -14,6 +14,7 @@ class TheGameScene extends Scene {
 
     asteroids;
     asteroid_imgs;
+    lastAsteroidSpawn;
 
     score;
     scoreTxt;
@@ -44,6 +45,8 @@ class TheGameScene extends Scene {
 
         this.joix = 0;
         this.joiy = 0;
+
+        this.lastAsteroidSpawn = Date.now();
     }
 
     load() {
@@ -143,10 +146,8 @@ class TheGameScene extends Scene {
                 this.asteroids.splice(i, 1);
             }
         }
-        this.spaceship.update((this.aim.y + (height / 2)), (this.aim.x + (width / 2)));
+        this.spaceship.update(this.aim);
         this.spaceship.draw();
-
-
 
         push();
         translate(this.aim.x, this.aim.y);
@@ -156,13 +157,18 @@ class TheGameScene extends Scene {
         pop();
 
         image(this.scoreTxt, -this.width / 2, -this.height / 2)
-
     }
 
     spawnAsteroids() {
-        if (this.asteroids.length < 4) {
-            let asteroid = new Asteroid(this.asteroid_imgs[int(random(0, this.asteroids.length))], 25);
-            this.asteroids.push(asteroid);
+        if (Date.now() > this.lastAsteroidSpawn + (600 - ((Date.now() - TIMER) / 1000))) {
+            let numOfAsteroids = int(random(1, 5));
+            for (let i = 0; i < numOfAsteroids; i++) {
+                let a_image = random(this.asteroid_imgs);
+                console.log(a_image);
+                let asteroid = new Asteroid(a_image, 25);
+                this.asteroids.push(asteroid);
+            }
+            this.lastAsteroidSpawn = Date.now();
         }
     }
 
@@ -209,6 +215,8 @@ class TheGameScene extends Scene {
 
         this.spaceship.lazors = [];
         this.asteroids = [];
+
+        TIMER = Date.now();
     }
 
 }
