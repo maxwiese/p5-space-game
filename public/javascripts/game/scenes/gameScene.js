@@ -109,6 +109,8 @@ class TheGameScene extends Scene {
         }
 
         if (keyIsPressed === true) {
+
+            console.log(keyCode)
             //left arrow or  a key
             if (keyCode == 37 || keyCode == 97 && !(this.spaceship.position.x < -155)) {
                 this.spaceship.move(-1)
@@ -116,6 +118,9 @@ class TheGameScene extends Scene {
             //right arrow or  d key
             if (keyCode == 39 || keyCode == 100 && !(this.spaceship.position.x > 155)) {
                 this.spaceship.move(1)
+            }
+            if (keyCode == 27) {
+                CURR_SCENE = 3
             }
         }
 
@@ -212,6 +217,7 @@ class TheGameScene extends Scene {
         this.score = 0;
         this.spaceship.level = 0;
         this.spaceship.shield = 100;
+        this.spaceship.isDestroied = false;
 
         this.spaceship.lazors = [];
         this.asteroids = [];

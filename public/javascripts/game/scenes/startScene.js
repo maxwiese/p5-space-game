@@ -35,11 +35,13 @@ class TheStartScene extends Scene {
         this.eyes = eyes;
 
         this.header = createGraphics(this.width, 30);
+        this.header.textAlign(CENTER);
         this.header.textFont(this.font);
         this.header.textSize(22);
         this.header.fill(0);
 
         this.subtext = createGraphics(this.width, 30);
+        this.subtext.textAlign(CENTER);
         this.subtext.textFont('Source Code Pro');
         this.subtext.textSize(18);
         this.subtext.fill(0);
@@ -57,14 +59,14 @@ class TheStartScene extends Scene {
         image(this.background_img, 0, 0);
         pop();
 
-        this.header.text(`SPACE SHOOTER`, 0, 25);
+        this.header.text(`SPACE SHOOTER`, this.width/2, 25);
 
-        this.subtext.text(`press space key to start`, 0, 25);
+        this.subtext.text(`press space key to start`, this.width/2, 25);
 
-        image(this.header, ((-this.width / 2) + 50), -75);
+        image(this.header, -this.width / 2, -75);
 
         if (curr.diff(this.lastBlink, 'seconds') > 0 ) {
-            image(this.subtext, -this.width / 2 + 105, -50);
+            image(this.subtext, -this.width / 2, -50);
         } 
         if (curr.diff(this.lastBlink, 'seconds') > 1 ) {
             this.lastBlink = moment();

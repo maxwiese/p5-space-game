@@ -14,6 +14,7 @@ function preload() {
     scenes[0].load();
     scenes[1].load();
     scenes[2].load();
+
 }
 
 function setup() {

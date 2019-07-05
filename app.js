@@ -4,6 +4,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
+var scoreboardRouter = require('./routes/scoreboard');
 
 var app = express();
 
@@ -25,5 +26,6 @@ app.use(function (req, res, next) {
 });
 
 app.use('/', indexRouter);
+app.use('/scoreboard', scoreboardRouter);
 
 module.exports = app;
