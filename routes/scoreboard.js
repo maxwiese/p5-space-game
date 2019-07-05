@@ -19,7 +19,8 @@ router.get('/', function (req, res, next) {
           console.error(err.message);
           res.status(500);
         }
-        res.json(`{data: [${rows.map(row => row = JSON.stringify(row))}]}`).status(200);
+
+        res.json({ data: rows }).status(200);
       });
   });
 
@@ -56,7 +57,7 @@ router.post('/', function (req, res, next) {
           res.status(500);
         }
 
-        res.json(`{data: [${rows.map(row => row = JSON.stringify(row))}]}`).status(200);
+        res.json({ data: rows }).status(200);
       });
   });
 

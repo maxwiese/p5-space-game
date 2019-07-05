@@ -7,9 +7,11 @@ class Asteroid {
     scale;
     damage;
     isReadyToDestroy;
+    sounds;
         
-    constructor(image, maxSize=50) {
+    constructor(image, sounds, maxSize=50) {
         this.image = image;
+        this.sounds = sounds;
         
         this.position = createVector(int(random(-WIDTH /2, WIDTH/2)), -HEIGHT/2);
         
@@ -54,11 +56,12 @@ class Asteroid {
 
         for (let lazor of lazors) {
 
-            let isHit = collideLineCircle(lazor.currPos.x, lazor.currPos.y, lazor.image.width, lazor.image.height, this.position.x, this.position.y, r)
+            let isHit = collideLineCircle(lazor.currPos.x, lazor.currPos.y, lazor.image.width*lazor.scale, lazor.image.height*lazor.scale, this.position.x, this.position.y, r)
 
             if( isHit ) {
                 lazor.isReadyToDestroy = true;
                 this.isReadyToDestroy = true;
+                this.sounds[1].play();
                 return true;
             }
         }

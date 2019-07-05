@@ -9,6 +9,7 @@ class TheStartScene extends Scene {
 
     header;
     subtext;
+    scoreboard;
     
     lastBlink
 
@@ -46,6 +47,12 @@ class TheStartScene extends Scene {
         this.subtext.textSize(18);
         this.subtext.fill(0);
 
+        this.scoreboard = createGraphics(this.width, 100);
+        this.scoreboard.textAlign(CENTER);
+        this.scoreboard.textFont('Source Code Pro');
+        this.scoreboard.textSize(16);
+        this.scoreboard.fill(0);
+
         this.lastBlink = moment();
 
     }
@@ -71,6 +78,12 @@ class TheStartScene extends Scene {
         if (curr.diff(this.lastBlink, 'seconds') > 1 ) {
             this.lastBlink = moment();
         }
+
+        for (let i = 0; i < scoreboard.length; i++) {
+            this.scoreboard.text(`${scoreboard[i].name}: ${scoreboard[i].score}`, this.width/2, (i*15)+50);
+        }
+
+        image(this.scoreboard, -this.width / 2, this.scoreboard.height/2);
 
         if (keyIsPressed === true && keyCode == 32) {
             scenes[1].reset();

@@ -8,6 +8,7 @@ class Lazor {
     stroke;
     angleBetween;
     image;
+    scale;
 
     isReadyToDestroy;
     
@@ -24,6 +25,7 @@ class Lazor {
         this.color = color(255, 0, 150);
         this.length = length;
         this.stroke = stroke;
+        this.scale = 0.2;
 
         this.isReadyToDestroy = false;
         
@@ -43,7 +45,7 @@ class Lazor {
         push()
         
         translate(this.currPos.x, this.currPos.y)
-        scale(0.2);
+        scale(this.scale);
         rotate(this.angleBetween + 90)
        image(this.image, 0, 0)
 

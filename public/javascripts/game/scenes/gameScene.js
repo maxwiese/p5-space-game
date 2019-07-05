@@ -22,6 +22,7 @@ class TheGameScene extends Scene {
     aim;
 
     background_img;
+    sounds;
 
     constructor() {
         super()
@@ -42,6 +43,8 @@ class TheGameScene extends Scene {
 
         this.asteroids = [];
         this.asteroid_imgs = [];
+
+        this.sounds = [];
 
         this.joix = 0;
         this.joiy = 0;
@@ -67,6 +70,11 @@ class TheGameScene extends Scene {
         for (let i = 1; i < 4; i++) {
             this.asteroid_imgs.push(loadImage(`/assets/asteroid/asteroid_0${i}.png`));
         }
+
+        this.sounds.push(loadSound('/assets/sounds/damage.mp3'));
+        this.sounds.push(loadSound('/assets/sounds/explosion.mp3'));
+        this.sounds.push(loadSound('/assets/sounds/shot.mp3'));
+        this.sounds.push(loadSound('/assets/sounds/levelup.mp3'));
     }
 
     init(width, height, eyes) {
@@ -76,7 +84,7 @@ class TheGameScene extends Scene {
 
         this.aim = createVector();
 
-        this.spaceship = new Spaceship(this.spaceship_imgs, this.width, this.height);
+        this.spaceship = new Spaceship(this.spaceship_imgs, this.width, this.height, this.sounds);
 
         this.score = 0;
         this.scoreTxt = createGraphics(this.width, 30);
@@ -170,7 +178,7 @@ class TheGameScene extends Scene {
             for (let i = 0; i < numOfAsteroids; i++) {
                 let a_image = random(this.asteroid_imgs);
                 console.log(a_image);
-                let asteroid = new Asteroid(a_image, 25);
+                let asteroid = new Asteroid(a_image, this.sounds, 25);
                 this.asteroids.push(asteroid);
             }
             this.lastAsteroidSpawn = Date.now();

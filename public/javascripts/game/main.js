@@ -7,10 +7,19 @@ let CURR_SCENE = 0;
 let FRAMERATE = 60;
 let TIMER;
 
+let loadingJson;
+let scoreboard;
+
+let background_music;
+
 let scenes = [new TheStartScene(), new TheGameScene(), new TheEndScene()];
 
 // loading game assets
 function preload() {
+    loadingJson = loadJSON("http://localhost:3000/scoreboard");
+
+    background_music = loadSound("/assets/background/Light-Years.mp3")
+
     scenes[0].load();
     scenes[1].load();
     scenes[2].load();
@@ -22,6 +31,9 @@ function setup() {
     WIDTH = ((windowWidth / 2) - EYES)
     HEIGHT = windowHeight - 10;
 
+    //parse the JSON response from database
+    scoreboard = loadingJson.data;
+
     createCanvas(WIDTH, HEIGHT, 'webgl');
 
     scenes[0].init(WIDTH, HEIGHT, EYES);
@@ -29,6 +41,9 @@ function setup() {
     scenes[2].init(WIDTH, HEIGHT, EYES);
 
     frameRate(FRAMERATE);
+    background_music.setLoop(true);
+    background_music.setVolume(0.5);
+    background_music.play();
 
     collideDebug(false);
 }

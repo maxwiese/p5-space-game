@@ -12,8 +12,11 @@ class Spaceship {
     lazors;
     lastShot;
 
-    constructor(images, width, height) {
+    sounds;
+
+    constructor(images, width, height, sounds) {
         this.images = images;
+        this.sounds = sounds;
         this.level = 0;
         this.shield = 100;
         this.isDestroied = false;
@@ -68,18 +71,21 @@ class Spaceship {
     }
 
     shoot(destX, destY, lazor_image) {
+        this.sounds[2].play();
         this.lazors.push(new Lazor(this.position.x, this.position.y, destX, destY, this.direction, lazor_image));
     }
 
     levelUp() {
         if (this.level + 1 < this.images.length) {
             this.level += 1;
+            this.sounds[3].play();
             this.shotSpeed = map(this.level, 0, 7, 300, 50)
         }
     }
 
     hitByAsteroid(asteroid) {
         this.shield -= asteroid.damage;
+        this.sounds[0].play();
         if (this.shield <= 0) {
             this.isDestroyed = true;
         }
