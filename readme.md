@@ -37,7 +37,7 @@ a space shooter game using the p5 libary
 ## Acknowledgments
 
 **Special Thanks**:
-+ **Chistian** - [Siacher](https://github.com/Siacher)
++ **Christian** - [Siacher](https://github.com/Siacher)
 + **Bene** - [Obstrad](https://github.com/Obstrad)
 
-This Project is developt in a school-project
+This Project is developed in a school-project
