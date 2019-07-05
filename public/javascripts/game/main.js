@@ -16,7 +16,7 @@ let scenes = [new TheStartScene(), new TheGameScene(), new TheEndScene()];
 
 // loading game assets
 function preload() {
-    loadingJson = loadJSON("http://localhost:3000/scoreboard");
+    loadingJson = loadJSON("/scoreboard");
 
     background_music = loadSound("/assets/background/Light-Years.mp3")
 
