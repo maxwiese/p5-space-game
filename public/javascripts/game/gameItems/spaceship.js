@@ -80,6 +80,7 @@ class Spaceship {
             this.level += 1;
             this.sounds[3].play();
             this.shotSpeed = map(this.level, 0, 7, 300, 50)
+            this.shield += 20;
         }
     }
 

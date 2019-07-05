@@ -120,15 +120,15 @@ class TheGameScene extends Scene {
 
             console.log(keyCode)
             //left arrow or  a key
-            if (keyCode == 37 || keyCode == 97 && !(this.spaceship.position.x < -155)) {
-                this.spaceship.move(-1)
+            if ((keyCode == 37 && !(this.spaceship.position.x < -155)) || (keyCode == 97 && !(this.spaceship.position.x < -155))) {
+                this.spaceship.move(-1 * (this.spaceship.level / 10))
             }
             //right arrow or  d key
-            if (keyCode == 39 || keyCode == 100 && !(this.spaceship.position.x > 155)) {
-                this.spaceship.move(1)
+            if ((keyCode == 39 && !(this.spaceship.position.x > 155)) || (keyCode == 100 && !(this.spaceship.position.x > 155))) {
+                this.spaceship.move(1 * (this.spaceship.level / 10))
             }
             if (keyCode == 27) {
-                CURR_SCENE = 3
+                //CURR_SCENE = 3
             }
         }
 
