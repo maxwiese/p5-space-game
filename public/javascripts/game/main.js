@@ -32,7 +32,7 @@ function setup() {
     HEIGHT = windowHeight - 10;
 
     //parse the JSON response from database
-    scoreboard = loadingJson.data;
+    scoreboard = loadingJson.data.sort((a, b) => b.score - a.score);
 
     createCanvas(WIDTH, HEIGHT, 'webgl');
 

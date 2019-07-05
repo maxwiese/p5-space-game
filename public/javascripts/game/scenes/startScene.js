@@ -80,7 +80,7 @@ class TheStartScene extends Scene {
         }
 
         for (let i = 0; i < scoreboard.length; i++) {
-            this.scoreboard.text(`${scoreboard[i].name}: ${scoreboard[i].score}`, this.width/2, (i*15)+50);
+            this.scoreboard.text(`${i + 1}. ${scoreboard[i].name}: ${scoreboard[i].score}`, this.width/2, (i*15)+50);
         }
 
         image(this.scoreboard, -this.width / 2, this.scoreboard.height/2);

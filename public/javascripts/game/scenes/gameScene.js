@@ -121,11 +121,11 @@ class TheGameScene extends Scene {
             console.log(keyCode)
             //left arrow or  a key
             if ((keyCode == 37 && !(this.spaceship.position.x < -155)) || (keyCode == 97 && !(this.spaceship.position.x < -155))) {
-                this.spaceship.move(-1 * (this.spaceship.level / 10))
+                this.spaceship.move(-1 * this.spaceship.level)
             }
             //right arrow or  d key
             if ((keyCode == 39 && !(this.spaceship.position.x > 155)) || (keyCode == 100 && !(this.spaceship.position.x > 155))) {
-                this.spaceship.move(1 * (this.spaceship.level / 10))
+                this.spaceship.move(1 * this.spaceship.level)
             }
             if (keyCode == 27) {
                 //CURR_SCENE = 3
@@ -141,14 +141,15 @@ class TheGameScene extends Scene {
 
             if (asteroid.isHitByLazor(this.spaceship.lazors)) {
                 this.score++;
-                //this.normalLevelUp();
-                this.randomOneLevelUp()
+                this.normalLevelUp();
+                //this.randomOneLevelUp()
             }
 
             if (asteroid.hitSpaceship(this.spaceship)) {
                 this.spaceship.hitByAsteroid(asteroid);
                 asteroid.isReadyToDestroy = true;
                 if (this.spaceship.isDestroyed) {
+                    scenes[2].saved = false;
                     CURR_SCENE = 2;
                 }
             }

@@ -38,6 +38,7 @@ class Spaceship {
         this.position.x += posX;
     }
     update(crosshair) {
+        this.shotSpeed = map(this.level, 0, 7, 300, 50)
         this.direction = atan2(crosshair.y - this.position.y, crosshair.x - this.position.x);
         this.direction = (this.direction < 0) ? TWO_PI + this.direction +90 : this.direction + 90;
 
@@ -79,7 +80,6 @@ class Spaceship {
         if (this.level + 1 < this.images.length) {
             this.level += 1;
             this.sounds[3].play();
-            this.shotSpeed = map(this.level, 0, 7, 300, 50)
             this.shield += 20;
         }
     }
