@@ -79,7 +79,7 @@ class TheStartScene extends Scene {
             this.lastBlink = moment();
         }
 
-        for (let i = 0; i < scoreboard.length; i++) {
+        for (let i = 0; i < 3; i++) {
             this.scoreboard.text(`${i + 1}. ${scoreboard[i].name}: ${scoreboard[i].score}`, this.width/2, (i*15)+50);
         }
 

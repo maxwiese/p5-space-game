@@ -80,7 +80,7 @@ class Spaceship {
         if (this.level + 1 < this.images.length) {
             this.level += 1;
             this.sounds[3].play();
-            this.shield += 20;
+            //this.shield += 20;
         }
     }
 

@@ -16,7 +16,7 @@ class Asteroid {
         this.position = createVector(int(random(-WIDTH /2, WIDTH/2)), -HEIGHT/2);
         
         this.scale = random(0.1, 1);
-        this.speed = 0.5 * (this.scale *10);
+        this.speed = 0.5 * (this.scale *15);
         this.direction = createVector(0, this.speed);
         
         this.damage = int(this.scale * 20);
@@ -56,7 +56,7 @@ class Asteroid {
 
         for (let lazor of lazors) {
 
-            let isHit = collideLineCircle(lazor.currPos.x, lazor.currPos.y, lazor.image.width*lazor.scale, lazor.image.height*lazor.scale, this.position.x, this.position.y, r)
+            let isHit = collideCircleCircle(lazor.currPos.x, lazor.currPos.y, 10, this.position.x, this.position.y, r)
 
             if( isHit ) {
                 lazor.isReadyToDestroy = true;

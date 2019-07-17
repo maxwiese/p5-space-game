@@ -98,7 +98,7 @@ class TheEndScene extends Scene {
 
         image(this.header, -this.width / 2, -100);
 
-        for (let i = 0; i < scoreboard.length; i++) {
+        for (let i = 0; i < 3; i++) {
             this.scoreboard.text(`${i + 1}. ${scoreboard[i].name}: ${scoreboard[i].score}`, this.width / 2, (i * 15) + 50);
         }
 
@@ -113,8 +113,9 @@ class TheEndScene extends Scene {
 
 
         if (keyIsPressed === true && keyCode == 32) {
-            scenes[1].reset();
-            CURR_SCENE = 1;
+            //scenes[1].reset();
+            //CURR_SCENE = 1;
+            location.reload();
         }
 
     }

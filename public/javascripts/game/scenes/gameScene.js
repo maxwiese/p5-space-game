@@ -174,11 +174,10 @@ class TheGameScene extends Scene {
     }
 
     spawnAsteroids() {
-        if (Date.now() > this.lastAsteroidSpawn + (600 - ((Date.now() - TIMER) / 1000))) {
+        if (Date.now() > this.lastAsteroidSpawn + (500 - ((Date.now() - TIMER) / 1000))) {
             let numOfAsteroids = int(random(1, 5));
             for (let i = 0; i < numOfAsteroids; i++) {
                 let a_image = random(this.asteroid_imgs);
-                console.log(a_image);
                 let asteroid = new Asteroid(a_image, this.sounds, 25);
                 this.asteroids.push(asteroid);
             }

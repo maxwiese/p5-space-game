@@ -28,8 +28,8 @@ function preload() {
 
 function setup() {
     EYES = 75
-    WIDTH = ((windowWidth / 2) - EYES)
-    HEIGHT = windowHeight - 10;
+    WIDTH = 400 //((windowWidth / 2) - EYES)
+    HEIGHT = 650 //windowHeight - 10;
 
     //parse the JSON response from database
     scoreboard = loadingJson.data.sort((a, b) => b.score - a.score);
